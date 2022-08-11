@@ -9,12 +9,13 @@ import TransparentContainer from "./components/UI/TransparentContainer";
 
 const App = () => {
   const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loadingGet, setLoadingGet] = useState(false);
+  const [loadingPost, setLoadingPost] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setLoading(true);
-    fetch("https://swapi.dev/api/films", {
+    setLoadingGet(true);
+    fetch("https://react-swapi-eb200-default-rtdb.europe-west1.firebasedatabase.app/movies.json", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -25,21 +26,36 @@ const App = () => {
         return response.json();
       })
       .then((data) => {
-        const transformedMovies = data.results.map((movie) => {
-          return {
-            title: movie.title,
-            openingCrawl: movie.opening_crawl,
-            director: movie.director,
-            id: movie.episode_id
-          };
-        });
-        setMovies(transformedMovies);
+        const loadedMovies = []
+
+        for(const key of Object.keys(data)) {
+          loadedMovies.push({
+            id: key,
+            title: data[key].title,
+            director: data[key].director,
+            openingCrawl: data[key].openingCrawl
+          })
+        }
+
+        setMovies(loadedMovies);
       })
       .catch((e) => {
         setError(e.message);
       })
-      .finally(() => setLoading(false));
-  }, []);
+      .finally(() => setLoadingGet(false));
+  }, [loadingPost]);
+
+  const newMovieAddedHandler = (movie) => {
+    setLoadingPost(true)
+    fetch(
+      "https://react-swapi-eb200-default-rtdb.europe-west1.firebasedatabase.app/movies.json",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(movie),
+      }
+    ).then(() => setLoadingPost(false));
+  };
 
   let content = (
     <TransparentContainer className="text-center">
@@ -47,7 +63,7 @@ const App = () => {
     </TransparentContainer>
   );
 
-  loading &&
+  loadingGet &&
     !error &&
     (content = (
       <TransparentContainer className="text-center">
@@ -55,21 +71,21 @@ const App = () => {
       </TransparentContainer>
     ));
 
-  !loading &&
-    error &&
+  !loadingGet &&
+    error == "Something went wrong :\\" &&
     (content = (
       <TransparentContainer className="text-center">
         {error}
       </TransparentContainer>
     ));
 
-  !loading && !error && (content = <MovieList movies={movies} />);
+  !loadingGet && !error && (content = <MovieList movies={movies} />);
 
   return (
     <FullWrapper>
       <AppWrapper>
         <Header />
-        <NewMovie />
+        <NewMovie onNewMovieAdded={newMovieAddedHandler} loading={loadingPost} />
         {content}
       </AppWrapper>
     </FullWrapper>

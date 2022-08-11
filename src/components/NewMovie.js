@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import Spinner from "./UI/Spinner";
 import TransparentContainer from "./UI/TransparentContainer";
 
 const NewMovie = (props) => {
@@ -16,6 +17,10 @@ const NewMovie = (props) => {
     }
 
     props.onNewMovieAdded(movie)
+
+    titleRef.current.value = ''
+    directorRef.current.value = ''
+    openingRef.current.value = ''
   }
 
   return (
@@ -28,7 +33,7 @@ const NewMovie = (props) => {
         <input id="director" type="text" ref={directorRef}/>
         <label htmlFor="opening">Opening text:</label>
         <input id="opening" type="text" ref={openingRef}/>
-        <button className="bg-amber-400 rounded-lg p-2 ml-auto flex ">Add Movie</button>
+        <button className="bg-amber-400 rounded-lg p-2 ml-auto flex ">{props.loading? <Spinner />:"Add Movie"}</button>
       </form>
     </TransparentContainer>
   );
