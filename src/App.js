@@ -13,7 +13,7 @@ const App = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch("https://swapi.dev/api/films/", {
+    fetch("https://swapi.dev/api/films", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -29,6 +29,7 @@ const App = () => {
             title: movie.title,
             openingCrawl: movie.opening_crawl,
             director: movie.director,
+            id: movie.episode_id
           };
         });
         setMovies(transformedMovies);
