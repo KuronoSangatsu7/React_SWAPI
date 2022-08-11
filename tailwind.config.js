@@ -2,6 +2,9 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    fontFamily: {
+      sans: ["Teko", "serif"]
+    },
     screens: {
       sm: '480px',
       md: '768px',

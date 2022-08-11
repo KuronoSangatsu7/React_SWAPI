@@ -1,5 +1,5 @@
 const FullWrapper = (props) => {
-    return <div className="h-full bg-slate-800">{props.children}</div>
+    return <div className="h-full bg-slate-800 max-h-full overflow-scroll">{props.children}</div>
 }
 
 export default FullWrapper

@@ -1,11 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Bungee+Outline&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@500&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+    div,label,button {
+        @apply text-xl
+    }
     h1 {
         @apply font-header
+    }
+    input {
+        @apply rounded-lg p-3 w-full
+    }
+    label {
+        @apply block 
     }
 }

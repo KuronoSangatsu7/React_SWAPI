@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import MovieList from "./components/MovieList";
+import NewMovie from "./components/NewMovie";
 import AppWrapper from "./components/UI/AppWrapper";
 import FullWrapper from "./components/UI/FullWrapper";
 import Header from "./components/UI/Header";
@@ -68,6 +69,7 @@ const App = () => {
     <FullWrapper>
       <AppWrapper>
         <Header />
+        <NewMovie />
         {content}
       </AppWrapper>
     </FullWrapper>
