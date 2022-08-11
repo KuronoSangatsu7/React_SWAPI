@@ -9,7 +9,7 @@ import TransparentContainer from "./components/UI/TransparentContainer";
 const App = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     setLoading(true);
@@ -19,7 +19,10 @@ const App = () => {
         "Content-Type": "application/json",
       },
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) throw new Error("Something went wrong :\\");
+        return response.json();
+      })
       .then((data) => {
         const transformedMovies = data.results.map((movie) => {
           return {
@@ -29,11 +32,18 @@ const App = () => {
           };
         });
         setMovies(transformedMovies);
-        setLoading(false)
-      });
+      })
+      .catch((e) => {
+        setError(e.message);
+      })
+      .finally(() => setLoading(false));
   }, []);
 
-  let content = <div>No movies found.</div>;
+  let content = (
+    <TransparentContainer className="text-center">
+      No movies found.
+    </TransparentContainer>
+  );
 
   loading &&
     !error &&
@@ -43,7 +53,13 @@ const App = () => {
       </TransparentContainer>
     ));
 
-  !loading && error && (content = <div>Failed to fetch movies.</div>);
+  !loading &&
+    error &&
+    (content = (
+      <TransparentContainer className="text-center">
+        {error}
+      </TransparentContainer>
+    ));
 
   !loading && !error && (content = <MovieList movies={movies} />);
 
