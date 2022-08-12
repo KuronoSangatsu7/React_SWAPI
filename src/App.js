@@ -6,55 +6,38 @@ import FullWrapper from "./components/UI/FullWrapper";
 import Header from "./components/UI/Header";
 import Spinner from "./components/UI/Spinner";
 import TransparentContainer from "./components/UI/TransparentContainer";
+import useHttp from "./components/hooks/use-http";
 
 const App = () => {
   const [movies, setMovies] = useState([]);
-  const [loadingGet, setLoadingGet] = useState(false);
-  const [loadingPost, setLoadingPost] = useState(false);
-  const [error, setError] = useState(null);
+  const { loading, error, requestHttp: fetchMovies } = useHttp();
 
   useEffect(() => {
-    setLoadingGet(true);
-    fetch("https://react-swapi-eb200-default-rtdb.europe-west1.firebasedatabase.app/movies.json", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
+    const parseMovies = (data) => {
+      const loadedMovies = [];
+
+      for (const key of Object.keys(data)) {
+        loadedMovies.push({
+          id: key,
+          title: data[key].title,
+          director: data[key].director,
+          openingCrawl: data[key].openingCrawl,
+        });
+      }
+      
+      setMovies(loadedMovies);
+    };
+    fetchMovies(
+      {
+        url: "https://react-swapi-eb200-default-rtdb.europe-west1.firebasedatabase.app/movies.json",
       },
-    })
-      .then((response) => {
-        if (!response.ok) throw new Error("Something went wrong :\\");
-        return response.json();
-      })
-      .then((data) => {
-        const loadedMovies = []
-
-        for(const key of Object.keys(data)) {
-          loadedMovies.push({
-            id: key,
-            title: data[key].title,
-            director: data[key].director,
-            openingCrawl: data[key].openingCrawl
-          })
-        }
-
-        setMovies(loadedMovies);
-      })
-      .catch((e) => {
-        setError(e.message);
-      })
-      .finally(() => setLoadingGet(false));
-  }, [loadingPost]);
+      parseMovies
+    );
+    
+  }, [fetchMovies]);
 
   const newMovieAddedHandler = (movie) => {
-    setLoadingPost(true)
-    fetch(
-      "https://react-swapi-eb200-default-rtdb.europe-west1.firebasedatabase.app/movies.json",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(movie),
-      }
-    ).then(() => setLoadingPost(false));
+    setMovies(prevMovies => prevMovies.concat(movie))
   };
 
   let content = (
@@ -63,7 +46,7 @@ const App = () => {
     </TransparentContainer>
   );
 
-  loadingGet &&
+  loading &&
     !error &&
     (content = (
       <TransparentContainer className="text-center">
@@ -71,21 +54,23 @@ const App = () => {
       </TransparentContainer>
     ));
 
-  !loadingGet &&
-    error == "Something went wrong :\\" &&
+  !loading &&
+    error === "Something went wrong :\\" &&
     (content = (
       <TransparentContainer className="text-center">
         {error}
       </TransparentContainer>
     ));
 
-  !loadingGet && !error && (content = <MovieList movies={movies} />);
+  !loading && !error && (content = <MovieList movies={movies} />);
 
   return (
     <FullWrapper>
       <AppWrapper>
         <Header />
-        <NewMovie onNewMovieAdded={newMovieAddedHandler} loading={loadingPost} />
+        <NewMovie
+          onNewMovieAdded={newMovieAddedHandler}
+        />
         {content}
       </AppWrapper>
     </FullWrapper>
