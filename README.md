@@ -12,7 +12,9 @@ The first app has been deployed to vercel and can be interacted with at the foll
 https://react-swapi-blush.vercel.app/
 ### Tech Stack:
 
-- **Frontend**: `React.js`, `Tailwind CSS`, `Google Firebase`.
+- **Frontend**: `React.js`, `Tailwind CSS`.
+
+- **Backend**: `Google Firebase`.
 
 ### Features:
 - View all current Star Wars movies with info such as director and opening crawl.
