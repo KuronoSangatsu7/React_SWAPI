@@ -1,4 +1,4 @@
-## SWAPI:
+## React_SWAPI:
 
 ### Overview:
 The repo contains two branches:
