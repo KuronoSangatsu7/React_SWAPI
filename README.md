@@ -21,6 +21,8 @@ https://react-swapi-blush.vercel.app/
 
 - Sending movie data to `Firebase` backend and fetching the data back.
 
+- Cool design imo :)
+
 ### Contact Info:
 > Author: Jaffar Totanji
 
