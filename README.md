@@ -1,33 +1,27 @@
-## React_SWAPI:
+# React + TypeScript + Vite
 
-### Overview:
-The repo contains two branches:
-1. An app which fetches Star Wars movie data from `SWAPI` (https://swapi.dev)
-2. An app which provides a form to submit a movie to a `Firebase` mock backend and then fetches the movies.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-### Deployments:
+Currently, two official plugins are available:
 
-The first app has been deployed to vercel and can be interacted with at the following link: 
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-https://react-swapi-blush.vercel.app/
-### Tech Stack:
+## Expanding the ESLint configuration
 
-- **Frontend**: `React.js`, `Tailwind CSS`.
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-- **Backend**: `Google Firebase`.
+- Configure the top-level `parserOptions` property like this:
 
-### Features:
-- View all current Star Wars movies with info such as director and opening crawl.
+```js
+   parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: ['./tsconfig.json', './tsconfig.node.json'],
+    tsconfigRootDir: __dirname,
+   },
+```
 
-- Handling error and loading states of the http request.
-
-- Sending movie data to `Firebase` backend and fetching the data back.
-
-- Cool design imo :)
-
-### Contact Info:
-> Author: Jaffar Totanji
-
-> Email: jaafarti@gmail.com
-
-> Telegram: @KuroHata7
+- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
+- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list

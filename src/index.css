@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Teko:wght@500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Bungee+Outline&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Teko:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bungee+Outline&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -7,9 +7,26 @@
 
 @layer base {
     h1 {
-        @apply font-header
+        @apply font-header;
     }
     div {
-        @apply text-xl
+        @apply text-xl;
     }
+    body,
+    #root {
+        height: 100vh;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #f59e0b;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #d97706;
 }
