@@ -1,0 +1,13 @@
+# Git
+.git
+.gitignore
+
+# app
+node_modules
+.husky
+.eslintrc.cjs
+.prettierrc
+
+# Docker
+Dockerfile
+.dockerignore

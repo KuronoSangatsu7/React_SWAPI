@@ -9,6 +9,12 @@ https://react-swapi-blush.vercel.app/
 ### Tech Stack:
 - **Frontend**: `React.js`, `Tailwind CSS`, `React Query`.
 
+### Docker:
+Pull the image from Dockerhub and run it using the following command:
+
+    docker run -dp 5173:5173 kurohata7/react_swapi
+
+After successfully running the container, navigate to http://127.0.0.1:5173 to view the app.
 
 ### Contact Info:
 > Author: Jaffar Totanji
