@@ -14,3 +14,7 @@ Dockerfile
 
 # Docs
 *.md
+
+# Test
+coverage
+src/test
