@@ -1,5 +1,7 @@
 # React_SWAPI:
 
+![example workflow](https://github.com/KuronoSangatsu7/React_SWAPI/actions/workflows/node.yml/badge.svg)
+
 ## Overview:
 Simple web app that fetches Star Wars movies from [SWAPI](https://swapi.dev/) and displays them in a Star Wars inspired theme.
 
