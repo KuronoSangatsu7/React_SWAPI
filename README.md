@@ -8,6 +8,11 @@ Simple web app that fetches Star Wars movies from [SWAPI](https://swapi.dev/) an
 ## Deployments:
 https://react-swapi-blush.vercel.app/
 
+## Endpoints:
+
+- /: Displays the list of movies
+- /visits: Displays the number of visits to the app's root route
+
 ## Tech Stack:
 - **Frontend**: `React.js`, `Tailwind CSS`, `React Query`.
 

@@ -1,14 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
-import { TransparentContainer } from "../UI/transparent-container.component";
-import { Movie } from "./movie.component";
-import { getMovies } from "../../services/movie.service";
-import { Spinner } from "../UI/spinner.component";
+import { TransparentContainer } from "../components/UI/transparent-container.component";
+import { Movie } from "../components/Movies/movie.component";
+import { getMovies } from "../services/movie.service";
+import { Spinner } from "../components/UI/spinner.component";
+import { useEffect } from "react";
 
 export const Movies = () => {
     const { data: movies, isLoading: isLoadingMovies } = useQuery({
         queryKey: ["movies"],
         queryFn: getMovies,
     });
+
+    useEffect(() => {
+        const currentValue = localStorage.getItem("visits");
+        const newValue = currentValue ? parseInt(currentValue) + 1 : 1;
+
+        // Update Local Storage
+        localStorage.setItem("visits", newValue.toString());
+    }, []);
 
     if (isLoadingMovies)
         return (
